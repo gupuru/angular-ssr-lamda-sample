@@ -1,0 +1,44 @@
+service: angular-ssr-lamda-sample
+
+frameworkVersion: ">=1.14.0"
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ap-northeast-1
+  stage: dev
+
+package:
+  include:
+    - lambda/lamda.js
+    - dist-server/**
+    - dist/**
+  exclude:
+    - node_modules/**
+    - src/**
+    - e2e/**
+    - package.json
+    - coverage/**
+    - .**
+    - karma.conf.js
+    - protractor.conf.js
+    - LICENSE
+    - README.md
+    - bs-config**.js
+    - tslint.json
+    - tsconfig**.json
+    - webpack.**.js
+    - server.js
+
+functions:
+  handler:
+    handler: lambda/lambda.handler
+    timeout: 120
+    memorySize: 128
+    events:
+      - http:
+          path: '/'
+          method: get
+      - http:
+          path: '{proxy+}'
+          method: get

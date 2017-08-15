@@ -11,6 +11,9 @@
     "e2e": "ng e2e",
     "build:server": "ng build  --aot --build-optimizer --prod && ng build --aot --build-optimizer --prod --app universal --output-hashing=none",
     "start:server": "npm run build:server && npm run server",
+    "build:lamda:server": "ng build --aot --build-optimizer --prod -bh /dev/ && ng build -bh /dev/ --aot --build-optimizer --prod --app universal --output-hashing=none",
+    "start:lamda:server": "npm run build:lamda:server && npm run server",
+    "deploy:lamda": "npm run build:lamda:server && serverless deploy -v",
     "server": "node server.js"
   },
   "private": true,
